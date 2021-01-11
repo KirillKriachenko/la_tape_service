@@ -1,0 +1,30 @@
+body .container {
+  display: flex;
+  justify-content: center;
+}
+body .container .vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+}
+body .container .vertical-center a {
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  width: 80%;
+  height: 325px;
+  font-family: SansSerif;
+  font-weight: bold;
+  font-size: 50px;
+  color: white;
+  border-radius: 20px;
+  margin-left: 10%;
+  line-height: 325px;
+  box-shadow: 5px 7px 8px #888888;
+}
+
+/*# sourceMappingURL=style.css.map */
