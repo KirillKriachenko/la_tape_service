@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container-tape-template">
+    {{#each data as |item|}}
+        <a class="card-link" href="/tape/products?template={{item.id}}">
+            <div class="card">
+                <img src="data:image/gif;base64,{{item.image_1920}}"/>
+                <div class="card-body">
+                    <h1>{{item.name}}</h1>
+                    <table>
+                        <tr>
+                            <th>Total: {{item.qty_available}}</th>
+                            <th>Variants: {{item.product_variant_count}} </th>
+                        </tr>
+                    </table>
+                    <p></p>
+                </div>
+            </div>
+        </a>
+    {{/each}}
+
+
+</div>
+
+</body>
+</html>

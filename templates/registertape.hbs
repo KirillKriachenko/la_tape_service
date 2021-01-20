@@ -1,1 +1,30 @@
-<h1>Register Here</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container-tape-template">
+    {{#each data as |item|}}
+<!--        <a class="card-link" href="/tape/products?product={{item.id}}">-->
+        <div class="card">
+            <img src="data:image/gif;base64,{{item.image_1920}}"/>
+            <div class="card-body">
+                <h1>{{item.name}}</h1>
+                <table>
+                    <tr>
+                        <th>Quantity: {{item.qty_available}}</th>
+                        <th>Variant: {{item.product_template_attribute_value_ids}} </th>
+                    </tr>
+                </table>
+                <p></p>
+            </div>
+        </div>
+    {{/each}}
+
+
+</div>
+
+</body>
+</html>

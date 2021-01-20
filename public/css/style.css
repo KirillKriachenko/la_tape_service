@@ -26,5 +26,36 @@ body .container .vertical-center a {
   line-height: 325px;
   box-shadow: 5px 7px 8px #888888;
 }
+body .container-tape-template {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+body .container-tape-template .card-link {
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+}
+body .container-tape-template .card-link .card {
+  border: 1px solid #888888;
+  padding: 3px;
+  box-shadow: 5px 7px 8px #888888;
+  border-radius: 20px;
+  background-color: #17a2b8;
+  font-family: SansSerif;
+  color: white;
+}
+body .container-tape-template .card-link .card img {
+  padding: 20px;
+}
+body .container-tape-template .card-link .card .card-body {
+  text-align: center;
+}
+body .container-tape-template .card-link .card .card-body table {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+}
 
 /*# sourceMappingURL=style.css.map */
