@@ -15,22 +15,14 @@ const viewPath = path.join(__dirname, '/templates')
 app.set('view engine', 'hbs')
 app.set('views', viewPath)
 
-// var odoo = new Odoo({
-//     url: 'https://odoo.livingart.ca',
-//     port: '8443',
-//     db: 'odoo.livingart.ca',
-//     username: 'gregoryr@livingart.ca',
-//     password: 'Gregory@123'
-// })
-
-
 var odoo = new Odoo({
     url: 'https://odoo.livingart.ca',
     port: '8443',
     db: 'odoo.livingart.ca',
-    username: 'kirill@livingart.ca',
-    password: 'a1b2Norm911me'
+    username: 'gregoryr@livingart.ca',
+    password: 'Gregory@123'
 })
+
 
 
 app.use(express.static(publicDir))
