@@ -3,23 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+          integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
 </head>
 <body>
-<div class="container-tape-template">
+<div class="header">
+    <a id="back-btn" href="/tape/template"><i class="fas fa-chevron-circle-left"></i></a>
+    <form action="/tape/template" method="post">
+        <input id="list" name="list" style="visibility: hidden;">
+        <button id="register-btn">Register <i class="fas fa-check-circle"></i></button>
+    </form>
+
+</div>
+<br/>
+<div class="container-tape-product">
+
     {{#each data as |item|}}
-<!--        <a class="card-link" href="/tape/products?product={{item.id}}">-->
-        <div class="card">
+        <!--        <a class="card-link" href="/tape/products?product={{item.id}}">-->
+        <div class="card-product">
             <img src="data:image/gif;base64,{{item.image_1920}}"/>
             <div class="card-body">
-                <h1>{{item.name}}</h1>
+                <h1>{{item.display_name}}</h1>
                 <table>
                     <tr>
-                        <th>Quantity: {{item.qty_available}}</th>
-                        <th>Variant: {{item.product_template_attribute_value_ids}} </th>
+                        <th>Quantity: <span id="quantity-{{item.id}}">{{item.qty_available}}</span></th>
+                        <th style="display: none;">Template: <span id="tmlp-id-{{item.id}}">{{item.product_tmpl_id}}</span> </th>
                     </tr>
+                    <!--                    <tr class="btn-row">-->
+                    <!--                        <th><a class="circle-btn" href="#"><i class="fas fa-minus"></i></a></th>-->
+                    <!--                        <th><a class="circle-btn" href="#"><i class="fas fa-plus"></i></a></th>-->
+                    <!--                    </tr>-->
                 </table>
-                <p></p>
+
+                {{#if item.qty_available}}
+                    <div class="btn-row">
+<!--                        <a class="circle-btn" ><i class="fas fa-minus"></i></a>-->
+                        <button id="minus-btn-{{item.id}}" onclick="minusTape({{item.id}})" class="circle-btn" ><i class="fas fa-minus"></i></button>
+                        <h2 id="counter-{{item.id}}" class="counter-text">0</h2>
+<!--                        <a class="circle-btn" ><i class="fas fa-plus"></i></a>-->
+                        <button id="plus-btn-{{item.id}}" onclick="plusTape({{item.id}})" class="circle-btn" ><i class="fas fa-plus"></i></button>
+                    </div>
+                {{/if}}
             </div>
+            <br/>
         </div>
     {{/each}}
 
@@ -27,4 +53,7 @@
 </div>
 
 </body>
+
+<script src="/js/client.js"></script>
+
 </html>
