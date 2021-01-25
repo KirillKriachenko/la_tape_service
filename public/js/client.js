@@ -1,4 +1,3 @@
-console.log('Client side javascript file is loaded!')
 var tapeList = []
 
 function plusTape(elementId) {
@@ -33,8 +32,6 @@ function plusTape(elementId) {
             searchResult.counter = counter;
             searchResult.qty = quantity;
         }
-
-        console.log(tapeList)
         if(tapeList.length > 0){
             document.getElementById("register-btn").style.visibility = "visible";
             document.getElementById("back-btn").style.visibility = "hidden";
@@ -77,8 +74,6 @@ function minusTape(elementId) {
             document.getElementById("register-btn").style.visibility = "hidden";
             document.getElementById("back-btn").style.visibility = "visible";
         }
-
-        console.log(tapeList)
     }
 
     updateInput('list');

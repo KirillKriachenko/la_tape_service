@@ -4,7 +4,7 @@ body .header {
 }
 body .header #back-btn i {
   font-size: 75px;
-  color: #17a2b8;
+  color: #7c7bad;
   margin-left: 5%;
   margin-top: 10px;
 }
@@ -13,7 +13,7 @@ body .header #register-btn {
   text-decoration: none;
   text-align: center;
   color: white;
-  background-color: #17a2b8;
+  background-color: #7c7bad;
   display: inline-block;
   border-radius: 20px;
   width: 450px;
@@ -72,7 +72,7 @@ body .container-tape-template .card-link .card {
   padding: 3px;
   box-shadow: 5px 7px 8px #888888;
   border-radius: 20px;
-  background-color: #17a2b8;
+  background-color: #7c7bad;
   font-family: SansSerif;
   color: white;
 }
@@ -98,7 +98,7 @@ body .container-tape-product .card-product {
   padding: 3px;
   box-shadow: 5px 7px 8px #888888;
   border-radius: 20px;
-  background-color: #17a2b8;
+  background-color: #7c7bad;
   font-family: SansSerif;
   color: white;
   text-align: center;
@@ -138,7 +138,7 @@ body .container-tape-product .card-product .card-body .btn-row .circle-btn {
 body .container-tape-product .card-product .card-body .btn-row .circle-btn i {
   font-size: 50px;
   margin-top: calc(50% - 28px);
-  color: #17a2b8;
+  color: #7c7bad;
 }
 
 /*# sourceMappingURL=style.css.map */
