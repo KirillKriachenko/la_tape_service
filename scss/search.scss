@@ -1,0 +1,54 @@
+body {
+  $main-color: #7C7BAD;
+  $background-color: #f8fafe;
+
+  background-color: $background-color;
+
+  textarea:focus, input:focus {
+    outline: none;
+  }
+
+  .searchbox {
+    border: 1px solid $main-color;
+    padding: 15px;
+    margin-top: 50px;
+
+    form {
+      width: 100%;
+      background-color: #888888;
+      margin: 0;
+      padding: 0;
+      border: none;
+
+      input {
+        border: none;
+        width: 70%;
+        height: 66px;
+        padding: 15px;
+
+        text-transform: uppercase;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        width: 30%;
+        height: 65px;
+        background-color: $main-color;
+        color: white;
+        border: none;
+        font-style: normal;
+      }
+    }
+  }
+
+  .content{
+    //background-color: #7c7bad;
+    width: 100%;
+    margin-top: 20px;
+    table{
+      margin-top: 40px;
+      text-align: center;
+    }
+  }
+}

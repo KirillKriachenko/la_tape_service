@@ -20,10 +20,9 @@ var odoo = new Odoo({
     url: 'https://odoo.livingart.ca',
     port: '8443',
     db: 'odoo.livingart.ca',
-    username: 'gregoryr@livingart.ca',
-    password: 'Gregory@123'
+    username: 'kirill@livingart.ca',
+    password: 'a1b2Norm911me'
 })
-
 
 
 app.use(express.static(publicDir))
@@ -33,7 +32,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.get('', (req, res) => {
-    res.render('index', {title: 'Main Menu'})
+    res.render('search', {title: 'Main Menu'})
 })
 app.get('/tape/template', (req, res) => {
     const TAPE_CATEGORY_ID = 448;
@@ -43,18 +42,40 @@ app.get('/tape/template', (req, res) => {
             return console.log(err);
         }
         console.log('Request find all tapes');
-        var inParams = [];
-        inParams.push([['categ_id', '=', TAPE_CATEGORY_ID]]);
-        inParams.push(['name', 'qty_available', 'default_code', 'attribute_line_ids', 'product_variant_count', 'image_1920']); //fields
 
-        var params = [];
-        params.push(inParams);
-        odoo.execute_kw('product.template', 'search_read', params, function (err, value) {
+        var findAllCategoryParams = []
+        findAllCategoryParams.push([['parent_id', '=', TAPE_CATEGORY_ID]])
+        findAllCategoryParams.push(['id', 'name'])
+
+        var findAllCategory = [];
+        findAllCategory.push(findAllCategoryParams)
+        var all_category = odoo.execute_kw('product.category', 'search_read', findAllCategory, function (err, value) {
             if (err) {
                 return console.log(err);
             }
-            res.render('choosetemplate', {data: value})
-        });
+
+            // console.log(value);
+            id_list = []
+            for (let i = 0; i < value.length; i++) {
+                // console.log(value[i].id)
+                id_list.push(value[i].id)
+            }
+
+            var inParams = [];
+            inParams.push([['categ_id', 'in', id_list]]);
+            inParams.push(['name', 'qty_available', 'default_code', 'attribute_line_ids', 'product_variant_count', 'image_1920']); //fields
+
+            var params = [];
+            params.push(inParams);
+            console.log(params)
+            odoo.execute_kw('product.template', 'search_read', params, function (err, value) {
+                if (err) {
+                    return console.log(err);
+                }
+                res.render('choosetemplate', {data: value})
+            });
+        })
+
     });
 })
 
@@ -105,21 +126,97 @@ app.post('/tape/template', (req, res, next) => {
         }
         callback()
     }
-    update_data((data) =>{
-        function redirect(){
+    update_data((data) => {
+        function redirect() {
             res.redirect('/tape/template')
         }
-        setTimeout(redirect,1500  )
+
+        setTimeout(redirect, 1500)
 
     })
 
 
 })
 
+app.post('/search', (req, res) => {
+
+    const TAPE_CATEGORY_ID = 448;
+    console.log(req.body.name)
+    odoo.connect(function (err) {
+        var findAllCategoryParams = []
+        findAllCategoryParams.push([['parent_id', '=', TAPE_CATEGORY_ID]])
+        findAllCategoryParams.push(['id', 'name'])
+
+        var findAllCategory = [];
+        findAllCategory.push(findAllCategoryParams)
+        var all_category = odoo.execute_kw('product.category', 'search_read', findAllCategory, function (err, value) {
+            if (err) {
+                return console.log(err);
+            }
+
+            // console.log(value);
+            id_list = []
+            for (let i = 0; i < value.length; i++) {
+                // console.log(value[i].id)
+                id_list.push(value[i].id)
+            }
+
+            var inParams = [];
+
+            search_name = req.body.name
+            if (search_name != 'all') {
+                inParams.push([['categ_id', 'in', id_list], ['name', 'like', search_name]]);
+            } else {
+                inParams.push([['categ_id', 'in', id_list]]);
+            }
+
+            inParams.push(['name', 'qty_available', 'categ_id', 'attribute_line_ids', 'product_variant_count']); //fields
+
+            var params = [];
+            params.push(inParams);
+            // console.log(params)
+            odoo.execute_kw('product.template', 'search_read', params, function (err, value) {
+                if (err) {
+                    return console.log(err);
+                }
+                //  Template Data
+                // console.log(value)
+
+                // res.send(value)
+
+                id_list = []
+                for (let i = 0; i < value.length; i++) {
+                    // console.log(value[i].id)
+                    id_list.push(value[i].id)
+                }
+
+
+                var inParams = [];
+
+                inParams.push([['name', 'like', req.body.name], ['product_tmpl_id', 'in', id_list]]);
+                inParams.push(['id', 'name', 'categ_id', 'qty_available', 'product_position' ,'product_template_attribute_value_ids']);
+
+                var params = [];
+                params.push(inParams);
+
+                odoo.execute_kw('product.product', 'search_read', params, function (err, value) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    res.send(value);
+                })
+
+            });
+        })
+
+    })
+
+})
+
 app.get('/tape/products', (req, res) => {
     if (!req.query.template) {
         return res.send({
-            error: 'You must provice search term'
+            error: 'You must provide search term'
         })
     }
 

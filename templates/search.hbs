@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/search.css">
+</head>
+<body>
+<div class="container">
+    <div class="searchbox">
+        <form class="example" action="javascript:find_tape()">
+            <input type="text" placeholder="Enter tape name ..." name="search"><button type="submit">Search Tape</button>
+        </form>
+    </div>
+    <!--        <a href="#" style="background-color: #20c997">Add New Tape</a>-->
+</div>
+<div class="content">
+    <table id="tape-table" class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Place</th>
+            <th scope="col">Name</th>
+            <th scope="col">QTY</th>
+            <th scope="col">Category</th>
+
+
+        </tr>
+        </thead>
+        <tbody id="tape-table-body">
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const input = document.querySelector('input')
+
+    function find_tape() {
+        if (input.value != '') {
+            name = input.value
+
+            $.ajax({
+                type: 'POST',
+                url: '/search',
+                data: {
+                    'name': name
+                },
+                dataType: 'json',
+                success: function (data) {
+
+                    // console.log(data)
+                    // if(data == [])
+                    // {
+                    //     var table = $('#tape-table');
+                    //     table.append('<tr><td> Ooops nothing found. Please check tape name</td></tr>')
+                    // }
+
+                    console.log(data)
+                    var table = $('#tape-table-body');
+
+                    table.empty();
+
+                    for (i = 0; i < data.length; i++) {
+                        console.log(data[i])
+                        console.log(data[i].name)
+                        table.append('<tr><td><b>' + data[i].product_position + '</b></td><td>' + data[i].name + '</td><td>' + data[i].qty_available + '</td><td>' + data[i].categ_id[1] + '</td></tr>')
+                    }
+
+                    input.value = ''
+
+                }
+            })
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '/search',
+                data: {
+                    'name': 'all'
+                },
+                dataType: 'json',
+                success: function (data) {
+
+                }
+            })
+        }
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+
+</body>
+</html>
