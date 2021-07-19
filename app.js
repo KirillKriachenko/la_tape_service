@@ -163,13 +163,13 @@ app.post('/search', (req, res) => {
 
             var inParams = [];
 
-            search_name = req.body.name
-            if (search_name != 'all') {
-                inParams.push([['categ_id', 'in', id_list], ['name', 'like', search_name]]);
-            } else {
-                inParams.push([['categ_id', 'in', id_list]]);
-            }
-
+            // search_name = req.body.name
+            // if (search_name != 'all') {
+            //
+            // } else {
+            //     inParams.push([['categ_id', 'in', id_list]]);
+            // }
+            inParams.push([['categ_id', 'in', id_list], ['name', 'ilike', req.body.name]]);
             inParams.push(['name', 'qty_available', 'categ_id', 'attribute_line_ids', 'product_variant_count']); //fields
 
             var params = [];
@@ -193,8 +193,8 @@ app.post('/search', (req, res) => {
 
                 var inParams = [];
 
-                inParams.push([['name', 'like', req.body.name], ['product_tmpl_id', 'in', id_list]]);
-                inParams.push(['id', 'name', 'categ_id', 'qty_available', 'product_position' ,'product_template_attribute_value_ids']);
+                inParams.push([['name', 'ilike', req.body.name], ['product_tmpl_id', 'in', id_list]]);
+                inParams.push(['id', 'name', 'categ_id', 'qty_available', 'product_template_attribute_value_ids']);
 
                 var params = [];
                 params.push(inParams);
@@ -209,7 +209,88 @@ app.post('/search', (req, res) => {
             });
         })
 
+
+        // function get_variant_name
+
+        // for(let i = 0; i < value_produt.length; i++){
+        //     console.log(value_produt[i])
+        //
+        //     console.log(value_produt[i].product_template_attribute_value_ids[0])
+        //
+        //     var inParams = [];
+        //     inParams.push([['id','=',value_produt[i].product_template_attribute_value_ids[0]]])
+        //     inParams.push(['id','name'])
+        //
+        //     var params = [];
+        //     params.push(inParams)
+        //
+        //     console.log(inParams)
+        //     console.log(params)
+        //
+        //     odoo.execute_kw('product.template.attribute.value', 'search_read', params, function (err, value) {
+        //         if (err) {
+        //             return console.log(err);
+        //         }
+        //
+        //         // console.log(value)
+        //
+        //     });
+        // }
+
+
+        // var inParams = [];
+        // // inParams.push([['name', 'like', req.body.name]]);
+        // var inParams = [];
+        //
+        // // inParams.push([['id', '=', 14]]);
+        // inParams.push([['id', '=', 8754]]);
+        // inParams.push(['id', 'name']);
+        //
+        // var params = [];
+        // params.push(inParams);
+        //
+        //
+        // console.log(inParams)
+        // console.log(params)
+        //
+        //
+        // odoo.execute_kw('product.attribute.value', 'search_read', params, function (err, value) {
+        //     if (err) {
+        //         return console.log(err);
+        //     }
+        //
+        //     console.log(value)
+        //
+        // });
+
+
+        // var inParams = [];
+        // // inParams.push([['name', 'like', req.body.name]]);
+        // var inParams = [];
+        //
+        // inParams.push([['name', 'like', req.body.name]]);
+        // inParams.push(['id','name']);
+        //
+        // var params = [];
+        // params.push(inParams);
+        //
+        //
+        // console.log(inParams)
+        // console.log(params)
+        //
+        // odoo.execute_kw('product.product', 'search_read', params, function (err, value) {
+        //     if (err) {
+        //         return console.log(err);
+        //     }
+        //     console.log(value)
+        //
+        //     res.send(value)
+        //
+        // });
+
+
     })
+
 
 })
 
